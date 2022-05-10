@@ -128,6 +128,8 @@ class Brush extends Rect {
 	constructor(_ctx, _x, _y, _w, _h) {
 		super(_x, _y, _w, _h);
 		this.ctx = _ctx;
+		this.ctx.textAlign = "center";
+		this.ctx.textAlign = "middle";
 	}
 
 	fillRect() {
@@ -158,10 +160,6 @@ class Brush extends Rect {
 	}
 	draw(_img) {
 		this.ctx.drawImage(_img, this.x, this.y, this.h, this.v);
-	}
-
-	scaleFont(_r) {
-		this.ctx.font = ((_r > 1) ? 1 : ((_r < 0) ? 0 : _r)*this.maxFont) + FONT_STR;
 	}
 }
 //--------------------------------------------------------------------FUCTIONS
