@@ -1,0 +1,22 @@
+{
+  "name": "cmdaisy-utils",
+  "version": "1.0.0",
+  "description": "A collection of useful but non-specific helper functions and classes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TDCalverley99/cmdaisy-utils.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "CallMeDaisy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TDCalverley99/cmdaisy-utils/issues"
+  },
+  "homepage": "https://github.com/TDCalverley99/cmdaisy-utils#readme"
+}
