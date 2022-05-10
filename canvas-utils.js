@@ -11,14 +11,14 @@ class Rect {
 	}
 
 	//should never be overridden
-	setAbs = (_x, _y, _w, _h) => {
+	setAbs(_x, _y, _w, _h) {
 		if (_x || _x === 0) {this.x = _x;}
 		if (_y || _y === 0) {this.y = _y;}
 		if (_w && _w >= 0) {this.w = _w;}
 		if (_h && _h >= 0) {this.h = _h;}
 		return this;
 	}
-	alterAbs = (_dx, _dy, _dw, _dh) => {
+	alterAbs(_dx, _dy, _dw, _dh) {
 		if (_dx) {this.x += _dx;}
 		if (_dy) {this.y += _dy;}
 		if (_dw && _dw > -this.w) {this.w += _dw;}
@@ -72,7 +72,7 @@ class Cube {
 	}
 
 	//should never be overridden
-	setAbs = (_x, _y, _z, _w, _h, _d) => {
+	setAbs(_x, _y, _z, _w, _h, _d) {
 		if (_x || _x === 0) {this.x = _x;}
 		if (_y || _y === 0) {this.y = _y;}
 		if (_z || _z === 0) {this.z = _z;}
@@ -81,7 +81,7 @@ class Cube {
 		if (_d && _d >= 0) {this.d = _d;}
 		return this;
 	}
-	alterAbs = (_dx, _dy, _dz, _dw, _dh, _dd) => {
+	alterAbs(_dx, _dy, _dz, _dw, _dh, _dd) {
 		if (_dx) {this.x += _dx;}
 		if (_dy) {this.y += _dy;}
 		if (_dz) {this.z += _dz;}
