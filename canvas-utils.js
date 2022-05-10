@@ -11,7 +11,7 @@ class Rect {
 	}
 
 	//should never be overridden
-	setAbs = (_x, _y, _h, _v) => {
+	setAbs = (_x, _y, _w, _h) => {
 		if (_x || _x === 0) {this.x = _x;}
 		if (_y || _y === 0) {this.y = _y;}
 		if (_w && _w >= 0) {this.w = _w;}
