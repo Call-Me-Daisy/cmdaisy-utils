@@ -132,6 +132,11 @@ class Brush extends Rect {
 		this.ctx.textAlign = "middle";
 	}
 
+	adjustForLinewidth() {
+		const lw = this.ctx.linewidth;
+		return this.alterAbs(lw/2, lw/2, -lw, -lw);
+	}
+
 	fillRect() {
 		this.ctx.fillRect(this.x, this.y, this.w, this.h);
 	}
