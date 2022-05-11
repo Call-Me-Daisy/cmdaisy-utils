@@ -159,6 +159,12 @@ class Brush extends Rect {
 		this.ellipsePath();
 		this.ctx.stroke();
 	}
+	clearEllipse() {
+		const gco = this.ctx.globalCompositeOperation;
+		this.ctx.globalCompositeOperation = "destination-out";
+		this.fillEllipse();
+		this.ctx.globalCompositeOperation = gco;
+	}
 
 	write(_txt) {
 		this.ctx.fillText(_txt, this.x + this.h/2, this.y + this.v/2);
