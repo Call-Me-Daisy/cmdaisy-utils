@@ -30,5 +30,6 @@ function sliceArgs(_args, _start, _stop) {
 }
 //--------------------------------------------------------------------FINALIZE
 module.exports = {
+	Registry,
 	sliceArgs
 }
