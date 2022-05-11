@@ -1,4 +1,21 @@
 //--------------------------------------------------------------------CLASSES
+//------------------------------------REGISTRY
+class Registry {
+	constructor() {
+		this.ID_MAKER = 0;
+	}
+	registerType(_typeName) {
+		if (isNaN(_typeName)) {this[_typeName] = {};}
+		else { throw `Registry type cannot have name ${_typeName}`; }
+	}
+	register(_typeName, _elementName, _element) {
+		if (this[_typeName] === undefined) {this.registerType(_typeName);}
+
+		_element.type = _typeName;
+		_element.id = this.ID_MAKER++;
+		this[_typeName][_elementName] = _element;
+	}
+}
 //------------------------------------OTHER
 //--------------------------------------------------------------------FUCTIONS
 //------------------------------------OTHER
