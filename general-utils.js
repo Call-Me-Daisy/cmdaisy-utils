@@ -5,15 +5,22 @@ class Registry {
 		this.ID_MAKER = 0;
 	}
 	registerType(_typeName) {
-		if (isNaN(_typeName)) {this[_typeName] = {};}
-		else { throw `Registry type cannot have name ${_typeName}`; }
+		if (isNaN(_typeName)) {return (this[_typeName] = {});}
+		throw `Registry type cannot have name ${_typeName}`;
 	}
 	register(_typeName, _elementName, _element) {
-		if (this[_typeName] === undefined) {this.registerType(_typeName);}
+		const type = (this[_typeName] === undefined) ? this.registerType(_typeName) : this[_typeName];
+		const id = (this[_typeName][_elementName]) ? this[_typeName][_elementName].id : ID_MAKER++;
 
 		_element.type = _typeName;
-		_element.id = this.ID_MAKER++;
-		this[_typeName][_elementName] = _element;
+		_element.id = id;
+		return (this[_typeName][_elementName] = _element);
+	}
+	fetchElement(_elementID) {
+		for (const [key, element] of Object.entries(this)) {
+			if (key !== ID_MAKER && element.id === _elementID) {return [key, element];}
+		}
+		return undefined;
 	}
 }
 //------------------------------------OTHER
