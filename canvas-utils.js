@@ -128,6 +128,7 @@ class Brush extends Rect {
 	constructor(_ctx, _x, _y, _w, _h) {
 		super(_x, _y, _w, _h);
 		this.ctx = _ctx;
+
 		this.ctx.textAlign = "center";
 		this.ctx.textAlign = "middle";
 	}
@@ -167,10 +168,10 @@ class Brush extends Rect {
 	}
 
 	write(_txt) {
-		this.ctx.fillText(_txt, this.x + this.h/2, this.y + this.v/2);
+		this.ctx.fillText(_txt, this.x + this.w/2, this.y + this.h/2);
 	}
 	draw(_img) {
-		this.ctx.drawImage(_img, this.x, this.y, this.h, this.v);
+		this.ctx.drawImage(_img, this.x, this.y, this.w, this.h);
 	}
 }
 //--------------------------------------------------------------------FUCTIONS
