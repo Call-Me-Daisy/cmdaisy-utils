@@ -40,7 +40,7 @@ class Rect {
 		return this.alterAbs(false, false, _dw, _dh);
 	}
 
-	set(_x, _y, _h, _v) {
+	set(_x, _y, _w, _h) {
 		return this.setPos(_x, _y).setDim(_w, _h);
 	}
 	alter(_dx, _dy, _dw, _dh) {
