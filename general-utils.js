@@ -10,7 +10,7 @@ class Registry {
 	}
 	register(_typeName, _elementName, _element) {
 		const type = (this[_typeName] === undefined) ? this.registerType(_typeName) : this[_typeName];
-		const id = (this[_typeName][_elementName]) ? this[_typeName][_elementName].id : ID_MAKER++;
+		const id = (this[_typeName][_elementName]) ? this[_typeName][_elementName].id : this.ID_MAKER++;
 
 		_element.type = _typeName;
 		_element.id = id;
@@ -18,7 +18,7 @@ class Registry {
 	}
 	fetchElement(_elementID) {
 		for (const [key, element] of Object.entries(this)) {
-			if (key !== ID_MAKER && element.id === _elementID) {return [key, element];}
+			if (key !== this.ID_MAKER && element.id === _elementID) {return [key, element];}
 		}
 		return undefined;
 	}
