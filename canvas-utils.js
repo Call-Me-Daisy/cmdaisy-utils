@@ -130,7 +130,7 @@ class Brush extends Rect {
 		this.ctx = _ctx;
 
 		this.ctx.textAlign = "center";
-		this.ctx.textAlign = "middle";
+		this.ctx.textBaseline = "middle";
 	}
 
 	adjustForLinewidth() {
