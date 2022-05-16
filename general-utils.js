@@ -13,7 +13,7 @@ class Registry {
 		const id = (this[_typeName][_elementName]) ? this[_typeName][_elementName].id : this.ID_MAKER++;
 
 		_element.type = _typeName;
-		_element.name = _elementName;
+		_element.handle = _elementName;
 		_element.id = id;
 		return (this[_typeName][_elementName] = _element);
 	}
