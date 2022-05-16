@@ -9,7 +9,7 @@ class Registry {
 		throw `Registry type cannot have name ${_typeName}`;
 	}
 	register(_typeName, _elementName, _element) {
-		const type = this[typeName] || this.registerType(_typeName);
+		const type = this[_typeName] || this.registerType(_typeName);
 		const id = (this[_typeName][_elementName]) ? this[_typeName][_elementName].id : this.ID_MAKER++;
 
 		_element.type = _typeName;
