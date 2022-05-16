@@ -9,10 +9,11 @@ class Registry {
 		throw `Registry type cannot have name ${_typeName}`;
 	}
 	register(_typeName, _elementName, _element) {
-		const type = (this[_typeName] === undefined) ? this.registerType(_typeName) : this[_typeName];
+		const type = this[typeName] || this.registerType(_typeName);
 		const id = (this[_typeName][_elementName]) ? this[_typeName][_elementName].id : this.ID_MAKER++;
 
 		_element.type = _typeName;
+		_element.name = _elementName;
 		_element.id = id;
 		return (this[_typeName][_elementName] = _element);
 	}
@@ -36,7 +37,7 @@ function sliceArgs(_args, _start, _stop) {
 	if (_start >= _args.length) {return [];}
 	const stop = (_stop === undefined || _stop > _args.length) ? _args.length : _stop;
 
-	let out = [];
+	const out = [];
 	for (let i=_start; i<stop; i++) {out.push(_args[i]);}
 	return out;
 }
@@ -44,4 +45,4 @@ function sliceArgs(_args, _start, _stop) {
 module.exports = {
 	Registry,
 	sliceArgs
-}
+};
