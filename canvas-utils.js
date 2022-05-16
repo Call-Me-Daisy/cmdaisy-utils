@@ -53,9 +53,12 @@ class Rect {
 	alterBy(_that) {
 		return this.alter(_that.x, _that.y, _that.w, _that.h);
 	}
-
 	centerStretch(_w, _h) {
 		return this.setAbs(this.x + (this.w - _w)/2, this.y + (this.h - _h)/2, _w, _h);
+	}
+
+	getCenter() {
+		return [this.x + (this.w - 1)/2, this.y + (this.h - 1)/2];
 	}
 }
 
@@ -120,6 +123,10 @@ class Cube {
 	}
 	centerStretch(_w, _h, _d) {
 		return this.setAbs(this.x + (this.w - _w)/2, this.h + (this.h - _h)/2, this.d + (this.d - _d)/2, _w, _h, _d);
+	}
+
+	getCenter() {
+		return [this.x + (this.w - 1)/2, this.y + (this.h - 1)/2, this.z + (this.d - 1)/2];
 	}
 }
 //------------------------------------OTHER
