@@ -5,24 +5,24 @@ class Rect {
 	constructor(_x, _y, _w, _h) {
 		this.x = 0;
 		this.y = 0;
-		this.w = 1;
-		this.h = 1;
+		this.w = 0;
+		this.h = 0;
 		this.setAbs(_x, _y, _w, _h);
 	}
 
 	//should never be overridden
 	setAbs(_x, _y, _w, _h) {
-		if (_x || _x === 0) {this.x = _x;}
-		if (_y || _y === 0) {this.y = _y;}
-		if (_w && _w > 0) {this.w = _w;}
-		if (_h && _h > 0) {this.h = _h;}
+		(_x || _x === 0) && (this.x = _x);
+		(_y || _y === 0) && (this.y = _y);
+		_w && _w >= 0 && (this.w = _w);
+		_h && _h >= 0 && (this.h = _h);
 		return this;
 	}
 	alterAbs(_dx, _dy, _dw, _dh) {
-		if (_dx) {this.x += _dx;}
-		if (_dy) {this.y += _dy;}
-		if (_dw && _dw > -this.w) {this.w += _dw;}
-		if (_dh && _dh > -this.h) {this.h += _dh;}
+		_dx && (this.x += _dx);
+		_dy && (this.y += _dy);
+		_dw && _dw >= -this.w && (this.w += _dw);
+		_dh && _dh >= -this.h && (this.h += _dh);
 		return this;
 	}
 
@@ -68,29 +68,29 @@ class Cube {
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
-		this.w = 1;
-		this.h = 1;
-		this.d = 1;
+		this.w = 0;
+		this.h = 0;
+		this.d = 0;
 		this.setAbs(_x, _y, _z, _w, _h, _d);
 	}
 
 	//should never be overridden
 	setAbs(_x, _y, _z, _w, _h, _d) {
-		if (_x || _x === 0) {this.x = _x;}
-		if (_y || _y === 0) {this.y = _y;}
-		if (_z || _z === 0) {this.z = _z;}
-		if (_w && _w > 0) {this.w = _w;}
-		if (_h && _h > 0) {this.h = _h;}
-		if (_d && _d > 0) {this.d = _d;}
+		(_x || _x === 0) && (this.x = _x);
+		(_y || _y === 0) && (this.y = _y);
+		(_z || _z === 0) && (this.z = _z);
+		_w && _w >= 0 && (this.w = _w);
+		_h && _h >= 0 && (this.h = _h);
+		_d && _d >= 0 && (this.d = _d);
 		return this;
 	}
 	alterAbs(_dx, _dy, _dz, _dw, _dh, _dd) {
-		if (_dx) {this.x += _dx;}
-		if (_dy) {this.y += _dy;}
-		if (_dz) {this.z += _dz;}
-		if (_dw && _dw > -this.w) {this.w += _dw;}
-		if (_dh && _dh > -this.h) {this.h += _dh;}
-		if (_dd && _dd > -this.d) {this.w += _dd;}
+		_dx && (this.x += _dx);
+		_dy && (this.y += _dy);
+		_dz && (this.z += _dz);
+		_dw && _dw >= -this.w && (this.w += _dw);
+		_dh && _dh >= -this.h && (this.h += _dh);
+		_dd && _dd >= -this.d && (this.w += _dd);
 		return this;
 	}
 
