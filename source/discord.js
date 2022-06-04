@@ -8,7 +8,7 @@ class DiscordBot extends Client {
 		return this.fetchChannel(_channelId).messages.fetch(_messageId);
 	}
 	fetchReference(_msg) {
-		return _msg.reference !== null && fetchMessage(_msg.reference.channelId, _msg.reference.messageId);
+		return _msg.reference !== null && this.fetchMessage(_msg.reference.channelId, _msg.reference.messageId);
 	}
 }
 //--------------------------------------------------------------------CLEANER
