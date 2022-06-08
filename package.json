@@ -1,6 +1,6 @@
 {
   "name": "cmdaisy-utils",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "A collection of useful but non-specific helper functions and classes",
   "main": "index.js",
   "scripts": {
