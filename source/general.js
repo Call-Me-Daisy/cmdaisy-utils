@@ -26,7 +26,7 @@ class Registry {
 	addAliases(_type, _currentName, _newNames) {
 		const type = this[_type];
 		const element = type[_currentName];
-		for (const name of ((_newNames instanceof Array) ? _newNames : [_newNames])) {type[name] = element;}
+		for (const name of ((_newNames instanceof Array) ? _newNames : _newNames.split(","))) {type[name] = element;}
 	}
 }
 //------------------------------------OTHER
