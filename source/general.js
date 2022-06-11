@@ -10,43 +10,81 @@ function sliceArgs(_args, _start, _stop) {
 }
 //--------------------------------------------------------------------CLASSES
 //------------------------------------REGISTRY
-class Registry {
-	constructor(_typeMaker, _kwargs = {}) {
-		this.ID_MAKER = 0;
-		this.TYPE_MAKER = _typeMaker || function() {return {};};
-
-		for (const [key, val] of Object.entries(_kwargs)) {this[key] = val;}
+class RegistryBase {
+	static throwHandle(_handle, _handleUse, _reason) {
+		throw `Proposed Registry handle, ${_handle}, is invalid for ${_handleUse}; ${_reason}`;
 	}
-	registerType(_typeName) {
-		if (isNaN(_typeName)) {return (this[_typeName] = this.TYPE_MAKER(...sliceArgs(arguments, 1)));}
-		throw `Invalid typeName for Registry ${_typeName}; cannot be number`;
-	}
-	register(_typeName, _elementName, _element) {
-		const type = this[_typeName] || this.registerType(_typeName);
-		const id = (this[_typeName][_elementName]) ? this[_typeName][_elementName].id : this.ID_MAKER++;
-
-		_element.type = _typeName;
-		_element.handle = _elementName;
-		_element.id = id;
-		return (this[_typeName][_elementName] = _element);
+	static validateHandle(_handle, _handleUse) {
+		if (!(typeof _handle === 'string' || _handle instanceof String)) { RegistryBase.throwHandle(_handle, _handleUse, "Must be string or String"); }
+		if (!isNaN(_handle)) { RegistryBase.throwHandle(_handle, _handleUse, "Cannot be number"); }
+		if (!_handle.length) { RegistryBase.throwHandle(_handle, _handleUse, "Cannot be empty string"); }
 	}
 
-	fetchElementById(_id) {
-		for (const [regKey, regVal] of Object.entries(this)) {
-			for (const [typeKey, typeVal] of Object.entries(regVal || {})) {
-				if (typeVal.id && typeVal.id === _id) {return [regKey, typeKey, typeVal];}
-			}
+	constructor(_handle, _handleUse) {
+		RegistryBase.validateHandle(_handle, _handleUse);
+		this.handle = _handle;
+	}
+
+	fetchByID(_id) {
+		for (const [key, val] of Object.entries(this)) {
+			const out = val && (val.id === _id && val || val.fetchByID && val.fetchByID(_id));
+			if (out) {return out;}
 		}
 		return undefined;
 	}
-	addAliases(_typeName, _currentName, _newNames) {
-		const type = this[_typeName];
-		const element = type[_currentName];
-		for (const name of ((_newNames instanceof Array) ? _newNames : _newNames.split(","))) {type[name] = element;}
+}
+class RegistryCategory extends RegistryBase {
+	static build() {return new RegistryCategory(...arguments);}
+	constructor(_handle, _extension = "") {
+		super(_handle, _extension + "Category");
+	}
+
+	register(_handle, _element) {
+		RegistryBase.validateHandle(_handle, "Element");
+		_element.category = this.handle;
+		_element.handle = _handle;
+		return this[_handle] = _element;
+	}
+	addAliases(_currentHandle, _newHandles) {
+		const element = this[_currentHandle];
+		for (const newHandle of (_newHandles instanceof Array) ? _newHandles : _newHandles.split(",")) {this[newHandle] = element;}
+		return this;
+	}
+}
+class Registry extends RegistryBase {
+	static Base = RegistryBase;
+	static Category = RegistryCategory;
+
+	static build() {return new Registry(...arguments);}
+	constructor(_handle = "", _makeCategory = RegistryCategory.build, _extension = "") {
+		super(_handle, _extension + "Registry");
+		this.ID_MAKER = 0;
+		this.makeCategory = _makeCategory;
+	}
+
+	registerCategory(_categoryName) {
+		return this[_categoryName] = this.makeCategory(...arguments);
+	}
+	ensureCategory(_categoryName) {
+		return this[_categoryName] || this.registerCategory(...arguments);
+	}
+
+	register(_categoryName, _elementName, _element) {
+		const category = this.ensureCategory(_categoryName);
+		const oldElement = category[_elementName];
+
+		_element.id = (oldElement) ? oldElement.id : this.ID_MAKER++;
+		return category.register(...sliceArgs(arguments, 1));
+	}
+	addAliases(_categoryName, _currentName, _newNames) {
+		const category = this[_categoryName];
+		const element = category[_currentName];
+		for (const newName of ((_newNames instanceof Array) ? _newNames : _newNames.split(","))) {category[newName] = element;}
+		return this;
 	}
 }
 //--------------------------------------------------------------------FINALIZE
 module.exports = {
-	Registry,
-	sliceArgs
+	sliceArgs,
+	Registry
 };
