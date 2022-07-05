@@ -50,6 +50,7 @@ const DiceRoller = {
 			const sign = poolStr.startsWith("-") ? -1 : 1;
 			out.push([sign, this.parsePool(poolStr.slice(1))]);
 		}
+		return out;
 	},
 
 	rollDie: function(_faces) {
@@ -77,7 +78,7 @@ const DiceRoller = {
 		let out = 0;
 		for (const entry of ((_pools instanceof Array) ? _pools : [_pools])) {
 			const [sign, pool] = (entry instanceof Array) ? entry : [1, entry];
-			out += sign*((pool.faces) ? rollDicePool(pool) : pool);
+			out += sign*((pool.faces) ? this.rollPool(pool) : pool);
 		}
 		return out;
 	},
