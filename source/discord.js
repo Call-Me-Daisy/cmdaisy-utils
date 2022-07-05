@@ -74,6 +74,7 @@ const DiceRoller = {
 		return out;
 	},
 	rollMany: function(_pools) {
+		let out = 0;
 		for (const entry of ((_pools instanceof Array) ? _pools : [_pools])) {
 			const [sign, pool] = (entry instanceof Array) ? entry : [1, entry];
 			out += sign*((pool.faces) ? rollDicePool(pool) : pool);
