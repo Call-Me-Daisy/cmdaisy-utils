@@ -8,6 +8,28 @@ function sliceArgs(_args, _start, _stop) {
 	for (let i=_start; i<stop; i++) {out.push(_args[i]);}
 	return out;
 }
+
+function isContained(_obj, _ary) {
+	for (const el of _ary) {
+		if (_obj === el) {return true;}
+	}
+	return false;
+}
+function indecesOfAny(_fullStr, _splitChars) {
+	const out = [];
+	for (let i = 0; i < _fullStr.length; i++) {
+		isContained(_fullStr[i], _splitChars) && out.push(i);
+	}
+	return out;
+}
+function splitAtAny(_fullStr, _splitChars, _eatSlice = 1) {
+	const out = [];
+	const indeces = indecesOfAny(_fullStr, _splitChars).concat(_fullStr.length);
+	for (let i = 1; i < indeces.length; i++) {
+		out.push(_fullStr.slice(indeces[i - 1] + _eatSlice, indeces[i]))
+	}
+	return out;
+}
 //--------------------------------------------------------------------CLASSES
 //------------------------------------REGISTRY
 class RegistryBase {
@@ -56,7 +78,7 @@ class Registry extends RegistryBase {
 	static Category = RegistryCategory;
 
 	static build() {return new Registry(...arguments);}
-	constructor(_handle = "", _makeCategory = RegistryCategory.build, _extension = "") {
+	constructor(_handle, _makeCategory = RegistryCategory.build, _extension = "") {
 		super(_handle, _extension + "Registry");
 		this.ID_MAKER = 0;
 		this.makeCategory = _makeCategory;
@@ -86,5 +108,8 @@ class Registry extends RegistryBase {
 //--------------------------------------------------------------------FINALIZE
 module.exports = {
 	sliceArgs,
+	isContained,
+	indecesOfAny,
+	splitAtAny,
 	Registry
 };
